@@ -72,7 +72,7 @@ trait Searchable
             return 'mktime';
         }else{
 			if(!function_exists('jmktime')){
-				throw new \Exception('jmktime functions are available'));
+				throw new \Exception('jmktime functions are available');
 			}
 			return 'jmktime';
 		}
