@@ -70,10 +70,17 @@ trait Searchable
     {
         if (Config::get('searchable.date_type') === 'gregorian') {
             return 'mktime';
-        }
+        }else{
+			if(!function_exists('jmktime')){
+				throw new \Exception('jmktime functions are available'));
+			}
+			return 'jmktime';
+		}
+		
+		
 
 
-        return 'jmktime';
+        
     }
 
     private function convertDate($date)

@@ -11,6 +11,5 @@ return [
         'deleted_at'
     ],
     'date_divider'  => '-',
-    'include_jdate' => true,
 
 ];

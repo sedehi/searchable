@@ -21,11 +21,7 @@ class SearchableServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([__DIR__.'/../../config/searchable.php' => config_path('searchable.php')]);
-        if (\Config::get('searchable.include_jdate')) {
-            if (!function_exists('jdate')) {
-                include_once __DIR__.'/jdate.php';
-            }
-        }
+
     }
 
 
