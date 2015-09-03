@@ -20,12 +20,14 @@ class SearchableServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->package('sedehi/searchable');
+        $this->publishes([__DIR__.'/../../config/searchable.php' => config_path('searchable.php')]);
+
     }
 
 
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__.'/../../config/searchable.php', 'searchable');
     }
 
     /**
