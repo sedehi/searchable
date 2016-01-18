@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Schema;
 use Config;
-
+use Input;
 trait Searchable
 {
 
@@ -21,11 +21,11 @@ trait Searchable
             $data['operator'] = '=';
             $data['clause']   = 'where';
             $data['column']   = $key;
-            $data['value']    = Request::get($key);
+            $data['value']    = Input::get($key);
             $append           = false;
 
             if (in_array($key, $dates)) {
-                $data['value'] = $this->convertDate(Request::get($key));
+                $data['value'] = $this->convertDate(Input::get($key));
             }
 
             if (is_array($value)) {
@@ -38,11 +38,11 @@ trait Searchable
                     if (is_array($value['between'])) {
                         $data['clause'] = 'whereBetween';
                         foreach ($value['between'] as $vBetween) {
-                            if (Request::has($vBetween)) {
+                            if (Input::has($vBetween)) {
                                 if (in_array($key, $dates)) {
-                                    $data['value'][] = $this->convertDate(Request::get($vBetween));
+                                    $data['value'][] = $this->convertDate(Input::get($vBetween));
                                 } else {
-                                    $data['value'][] = Request::get($vBetween);
+                                    $data['value'][] = Input::get($vBetween);
                                 }
 
                                 $append = true;
@@ -56,7 +56,7 @@ trait Searchable
                 $data['value'] = '%'.$data['value'].'%';
             }
 
-            if (Request::has($key)) {
+            if (Input::has($key)) {
                 $append = true;
             }
 
