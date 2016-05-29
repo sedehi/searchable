@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Schema;
 use Config;
 use Input;
+
 trait Searchable
 {
 
@@ -89,8 +90,13 @@ trait Searchable
         $dateTime[4]    = 0;
         $dateTime[5]    = 0;
         $dateTime       = array_merge(explode(Config::get('searchable::date_divider'), $date), $dateTime);
+        $formats        = ['d' => 0, 'm' => 1, 'y' => 2, 'h' => 3, 'i' => 4, 's' => 5];
 
         if (count($dateTime) == 6) {
+            if (!is_null(Config::get('searchable::date_format'))) {
+                $formats = array_flip(explode(Config::get('searchable::date_divider'),
+                                              Config::get('searchable::date_format')));
+            }
             $timestamp = $mktimeFunction($dateTime[3], $dateTime[4], $dateTime[5], $dateTime[1], $dateTime[0],
                                          $dateTime[2]);
 
