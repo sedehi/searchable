@@ -7,10 +7,13 @@ use Illuminate\Support\Facades\Schema;
 trait Searchable
 {
 
-    public function scopeSearchable($query)
+    public function scopeSearchable($query,$searchable = null)
     {
         $dates = array_unique(array_merge(config('searchable.date_fields'), $this->dates));
-
+        
+        if(!is_null($searchable)){
+            $this->searchable = $searchable;
+        }
 
         foreach ($this->searchable as $key => $value) {
 
