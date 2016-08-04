@@ -116,7 +116,9 @@ trait Searchable
                 $query->$data['clause']($data['column'], $data['operator'], $data['value']);
                 break;
             case 'whereBetween':
-                $query->$data['clause']($data['column'], $data['value']);
+                if (count($data['value']) == 2) {
+                    $query->$data['clause']($data['column'], $data['value']);
+                }
                 break;
         }
     }
